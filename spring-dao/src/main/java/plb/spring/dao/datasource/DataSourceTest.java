@@ -5,11 +5,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import javax.sql.DataSource;
-
 import org.apache.commons.dbcp.BasicDataSource;
 import org.junit.Test;
-import org.springframework.jndi.JndiObjectFactoryBean;
 
 public class DataSourceTest {
 	private Properties pop = new Properties();

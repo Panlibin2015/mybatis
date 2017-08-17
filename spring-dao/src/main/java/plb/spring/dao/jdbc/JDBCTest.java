@@ -101,6 +101,7 @@ public class JDBCTest {
 		String sql = "update t_spring_dao_test set age=" + 11 + " where id = 1";
 		// String sql2 = "insert into t_spring_dao_test values(1003,'金克丝3',15)";
 
+		@SuppressWarnings("unused")
 		String sql3 = "select * from t_spring_dao_test ";
 
 		// 点禁止自动提交，设置回退

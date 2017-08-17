@@ -7,7 +7,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 public class TestFileSystemJNDI {
+	@SuppressWarnings("unchecked")
 	public static void main(String[] args) throws NamingException {
+		@SuppressWarnings("rawtypes")
 		Hashtable env = new Hashtable();
 		String name = "F:\\fscontext-1_2-beta3.zip";
 		env.put(Context.OBJECT_FACTORIES, "com.sun.jndi.fscontext.RefFSContextFactory");

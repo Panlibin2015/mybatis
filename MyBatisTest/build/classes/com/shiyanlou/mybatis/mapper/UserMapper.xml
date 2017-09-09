@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shiyanlou.mybatis.mapper.UserMapper">
+	<!-- 	<cache/> 语句的效果如下：
+	
+	    映射文件中的所有 select 语句将会被缓存
+	    映射文件中的所有 insert,update 和 delete 语句会刷新缓存
+	    缓存会使用 Least Recently Used(LRU)算法来收回
+	    缓存不会被设定的时间所清空
+	    缓存会存储列表集合或对象(无论查询方法返回什么)的 1024 个引用
+	    缓存会被视为是 read/write(可读/可写)的缓存,意味着对象检索不是共享的,而且可以安全地被调用者修改,而不干扰其他调用者或线程所做的潜在修改
+	    
+	缓存策略:
+    LRU – 最近最少使用的:移出最近较长周期内都没有被使用的对象
+    FIFO – 先进先出:按对象进入缓存的顺序来移除
+    SOFT – 软引用:移除基于垃圾回收器状态和软引用规则的对象
+    WEAK – 弱引用:强制性地移除基于垃圾收集器状态和弱引用规则的对象
+	     -->
+	<!-- 创建一个 FIFO 缓存让其 60s 清空一次，存储512个对象或列表引用，返回的结果只读。因此在不同线程中的调用者之间修改它们会导致引用冲突。 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"/>
+	
+	<resultMap id="userMap" type="User">
+		<id property="id" column="id" javaType="int"></id>
+		<result property="username" column="username" javaType="String"></result>
+		<result property="password" column="password" javaType="String"></result>
+		<result property="sex" column="sex" javaType="String"></result>
+		<result property="address" column="address" javaType="String"></result>
+	</resultMap>
+
+	<insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO user(username,password,sex,address) values
+		(#{username},#{password},#{sex},#{address})
+	</insert>
+
+	<update id="updateUser" parameterType="User">
+		UPDATE user set
+		address=#{address}
+		where id=#{id}
+	</update>
+
+	<delete id="deleteUser" parameterType="int">
+		delete from user where
+		id=#{id}
+	</delete>
+
+	<select id="selectUserById" parameterType="int" resultType="User">
+		select * from user where id=#{id}
+	</select>
+
+	<select id="selectAllUser" resultMap="userMap">
+		select * from user;
+	</select>
+</mapper>

@@ -56,16 +56,20 @@ public class JDBCTest {
 	@Test
 	public void jdbcSelectAllRecords() throws SQLException {
 		String sql = "select * from t_spring_dao_test ";
-		PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
-		ps.execute();
+		con.setAutoCommit(false);
+		Statement ps =con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.FETCH_FORWARD);
+		ps.setFetchSize(2);// 一次拿几条数据
+//		ps.setMaxRows(2);// 最多拿几条数据
+		ps.execute(sql);
 		ResultSet rs = ps.getResultSet();
 		System.out.println("id\tname\tage");
-		while (rs.next()) {
-			String id = rs.getString(1);
-			String name = rs.getString(2);
-			String age = rs.getString(3);
-			System.out.println(id + "\t" + name + "\t" + age);
-		}
+//		while (rs.next()) {
+//			String id = rs.getString(1);
+//			String name = rs.getString(2);
+//			String age = rs.getString(3);
+//			System.out.println(id + "\t" + name + "\t" + age);
+//		}
+		con.commit();
 	}
 
 	@Test

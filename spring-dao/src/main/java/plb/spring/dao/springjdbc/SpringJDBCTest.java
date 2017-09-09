@@ -24,11 +24,13 @@ public class SpringJDBCTest {
 			e.printStackTrace();
 		}
 	}
-
+	
 	@Test
 	public void dataSourceTest() throws SQLException {
 		try {
 			DataSource dataSource = (DataSource) ctx.getBean("dataSource");
+			
+//			System.out.println(ctx.getBean("&dataSource"));
 			System.out.println(dataSource);
 			ResultSet rs = dataSource.getConnection().createStatement()
 					.executeQuery("SELECT count(*) as count FROM t_transaction_test");
@@ -36,6 +38,16 @@ public class SpringJDBCTest {
 				int count = rs.getInt("count");
 				Assert.assertNotEquals(0, count);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void dataSourceTest2() throws SQLException {
+		try {
+			DataSource dataSource = (DataSource) ctx.getBean("dataSource");
+//			System.out.println(ctx.getBean("&dataSource"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
